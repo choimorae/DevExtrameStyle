@@ -1,0 +1,237 @@
+$mainColor1:#B52C2C;
+$mainColor2:#DF9C16;
+$mixColor1:#DF7B16;
+$subColor1:#43119A;
+
+body{
+    font-family: 맑은고딕, Malgun Gothic, dotum, gulim, sans-serif;
+    
+    background:#f0f0f0;
+}
+
+/*button start*/
+.custom-button{
+    display:inline-block;
+    
+    .dx-button{
+        border-radius: 100px;
+
+        &.dx-state-hover{
+            background:#f2f2ff;
+        }
+    }
+}
+/*button end*/
+/*custom calendar start*/
+.custom-calendar {
+    //달력 선택된 스타일 바꿀 때와 글자 세로 가운데 정렬
+  
+    $mainColor1: #B52C2C;
+  
+  
+    .dx-calendar-cell {
+      vertical-align: middle;
+  
+      &:not(.dx-calendar-other-view, .dx-calendar-selected-date):hover {
+        box-shadow: inset 0 0 0 1000px rgba($mainColor1,0.07);
+      }
+
+      &.dx-state-active:not(.dx-calendar-empty-cell):not(.dx-calendar-selected-date) {
+        box-shadow: inset 0 0 0 1000px rgba($mainColor1,0.2);
+      }
+    }
+  
+    .dx-calendar-cell.dx-calendar-selected-date, .dx-calendar-cell.dx-calendar-selected-date.dx-calendar-today {
+      box-shadow: inset 0 0 0 1000px $mainColor1 , 1px 1px 1px rgba(0,0,0,0.15);
+      font-weight: bold;
+    }
+
+    
+  
+    //요일 색깔 코드
+    th[abbr='Saturday'] {
+      color: #0052d7;
+    }
+  
+    .dx-calendar-cell[aria-label*='Saturday']:not(.dx-calendar-selected-date) {
+      color: #0052d7;
+  
+      &.dx-calendar-other-view {
+        color: rgba(#0052d7, 0.4);
+      }
+    }
+  
+    th[abbr='Sunday'] {
+      color: #c30000;
+    }
+  
+    .dx-calendar-cell[aria-label*='Sunday']:not(.dx-calendar-selected-date) {
+      color: #c30000;
+  
+      &.dx-calendar-other-view {
+        color: rgba(#c30000, 0.4);
+      }
+    }
+  }
+  
+  /*custom calendar end*/
+/*tag-box start*/
+.custom-tag-box{
+    @mixin tagStyle($color){
+        border:1px solid rgba($color, 0.2);
+        background:rgba($color,0.15);
+        
+        & .dx-tag-remove-button:after, & .dx-tag-remove-button:before{
+            background:$color;
+        }
+    }
+
+    .dx-tag-content{
+        @include tagStyle($mainColor2);
+    }
+
+    & .dx-tag-remove-button:after, & .dx-tag-remove-button:before{
+        right:13px;
+        width: 2px;
+        height: 10px;
+    }
+    .dx-tag-remove-button:after{
+        right: 9px;
+        width: 10px;
+        height: 2px
+    }
+    
+    //두개씩 다른 색깔
+    .dx-tag:nth-child(4n-1) .dx-tag-content{
+        @include tagStyle($mixColor1);
+    }
+    
+    .dx-tag:nth-child(4n) .dx-tag-content{
+        @include tagStyle($mixColor1);
+    }
+
+    .dx-tag-content{
+        border-radius: 4px 15px 15px 4px;
+        padding-right:30px;
+    }
+
+    
+}
+//참조 : https://js.devexpress.com/Demos/WidgetsGallery/Demo/TagBox/GroupedItems/jQuery/Light/
+/*tag-box end*/
+
+/*select list start*/
+.dx-dropdownlist-popup-wrapper{
+    $selectBg:#F5F5F8;
+    @mixin afterIcon($iconCode, $color){
+        &:after{
+            content: $iconCode;  
+            display:block;
+            position:absolute;
+            top:10px;
+            right:10px;
+            font-family: 'DXIcons';
+            color:$color;
+        }
+    }
+
+    .dx-list:not(.dx-list-select-decorator-enabled) .dx-list-item{
+        position: relative;
+
+        &.dx-state-hover{
+            background:$selectBg;
+            @include afterIcon("\f00b", $mainColor2);
+        }
+        &.dx-state-focused{
+            background:$selectBg;
+            color:#212121;
+        }
+        &.dx-state-active{
+            background:$selectBg;
+            color:#212121;
+    
+            @include afterIcon("\f005", $mixColor1);
+        }
+    }
+
+    .dx-list:not(.dx-list-select-decorator-enabled) .dx-list-item.dx-list-item-selected{   
+
+        position:relative;
+        background: $selectBg;       
+
+        @include afterIcon("\f005", $mixColor1);
+
+        &.dx-state-hover{
+            background:$selectBg;
+        }
+        &.dx-state-hover:after{
+            content:'\f00a';
+            color:$mainColor1;
+        }
+        &.dx-state-focused{
+            background:$selectBg;
+            color:#212121;
+        }
+        &.dx-state-active{
+            @include afterIcon("\f00a", $mainColor1);
+        }
+    }
+    
+}
+//아이콘 위치 참조 : https://js.devexpress.com/Documentation/16_2/Guide/Themes/Icon_Library/
+//참조 : https://js.devexpress.com/Demos/WidgetsGallery/Demo/TagBox/GroupedItems/jQuery/Light/
+/*select list end*/
+
+/*Gallery start*/
+.custom-gallery{
+    @keyframes TimeAnimaiton {
+        from{
+            width:0;
+        }
+        to{
+            width:100;
+        }
+    }
+    .dx-item{
+        position: relative;
+
+        &::after{
+            content:'';
+            display: block;
+            position:absolute;
+            bottom:20px;
+            width:0;
+            height:3px;
+            background:#fff;
+        }
+    }
+    /*
+    .dx-gallery-indicator-item{
+        position: relative;
+        width: 10px;
+        height: 3px;
+        border: none;
+        border-radius: 5px;
+        opacity: 0.4;
+        transition: 0.5s all;
+    }
+    .dx-gallery-indicator-item-active, .dx-gallery-indicator-item-selected{
+        width: 34px;
+        height: 3px;
+        border-radius: 5px;
+        border: none;
+        margin-top: 1px;
+        margin-bottom: 1px;
+        opacity: 1;
+        background: #fff;
+    }
+    .dx-gallery-indicator-item-active::after, .dx-gallery-indicator-item-selected::after{
+        content:'';
+        display:block;
+        width:calc(100% + 6px);
+        height:calc(100% + 6px);
+        
+    }
+    */
+}
+/*Gallery end*/
